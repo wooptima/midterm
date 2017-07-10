@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title> To Do List </title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+     <!-- JS -->
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>  
+  <script src="js/angular.min.js"></script>
+ <script src="js/app.js"></script>
+  <script src="https://use.fontawesome.com/2b553970dc.js"></script>
+
+  
+</head>
+
+    
+    
+<body ng-app="toDoApp" class="ng-scope">
+  <div class="container-fluid">
+  
+      
+ <!----------- TOP NAV  ----------->
+    
+      <div class="navbar">
+       <img src="logo.png">
+      </div>
+     
+        
+      
+      
+ <!----------- TASK MANAGER  ----------->
+      
+   
+  <div class="container ng-scope" ng-controller="TodoCtrl">
+    <div class="row">
+
+        
+  <!-- MODAL: add new items  -->
+      <div id="task" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" ng-click="close()" data-dismiss="modal">×</button>
+              <h4 class="modal-title">Create a new task</h4>
+            </div>
+
+            <div class="modal-body">
+              <form ng-submit="addTodo()" role="form" name="addItemForm" class="ng-pristine ng-invalid ng-invalid-required ng-valid-maxlength">
+                <div class="form-group row">
+                  <label for="addListItemTitle" class="col-sm-2 col-form-label">Task Title</label>
+                  <div class="col-sm-10" style="padding-bottom: 15px;">
+                    <input type="text" ng-model="todoTitle" id="addListItemTitle" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required ng-valid-maxlength" maxlength="30" required="">
+                  </div>
+                  <label for="addListItemDesc" class="col-sm-2 col-form-label">Description</label>
+                  <div class="col-sm-10" style="padding-bottom: 15px;">
+                    <input type="text" ng-model="todoText" id="addListItemDesc" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required ng-valid-maxlength" maxlength="60" required="">
+                  </div>
+                  <label for="addListItemDate" class="col-sm-2 col-form-label">Date</label>
+                  <div class="col-sm-10" style="padding-bottom: 15px;">
+                    <input type="date" ng-model="todoDate" id="addListItemDate" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required" required="">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <input class="btn btn-default" type="submit" value="Add to list" ng-click="addTodo()" ng-disabled="addItemForm.$invalid" disabled="disabled">
+                  <button type="button" class="btn btn-default" ng-click="close()" data-dismiss="modal">Cancel</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- MODAL END -->
+
+        
+        
+        
+        
+        
+      <!-- NEW TASK BUTTON: Button trigger modal  -->
+      <div class="col-md-4 col-md-push-8" style="padding-bottom: 20px;">
+    <button type="button" class="btn btn-default btn-block btn-lg" data-toggle="modal" data-target="#task">
+       <i class="fa fa-pencil" aria-hidden="true"></i>
+        <h5>ADD NEW TASK</h5></button>
+        </div>
+      
+        
+        
+        
+        
+        
+       
+     <!-- TODO LIST PANEL -->
+        
+      <div class="col-md-8 col-md-pull-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h5>MY TO DO LIST</h5>
+          </div>
+          <div class="panel-body row">
+            <ul class="list-group" class="list-group">
+                <li ng-repeat="todo in todos track by $index" class="list-group-item justify-content-between">
+                     <h4> <i class="fa fa-thumb-tack" aria-hidden="true"></i>&nbsp;&nbsp;{{todo.title}}  </h4>
+                    <textarea ng-readonly="!todo.editing" class="form-control"> {{todo.text}}</textarea>      
+                    <P> {{todo.date.split('T')[0] }}</P>    
+                   <input class="btn btn-default" type="submit" value="Edit" ng-click="todo.editing = true" >
+                   <input class="btn btn-default" type="submit" value="Save" ng-click="todo.editing = false; updateTodos()" >
+                   <input class="btn btn-default" type="submit" value="Delete Task" ng-click="deleteItem()" >
+                    
+                </li> 
+                
+            </ul>
+          </div>
+        </div>
+      </div>      
+      <!-- PANEL END -->  
+      
+      
+      </div>
+      </div>
+      
+ <!----------- TASK MANAGER END  ----------->
+      
+
+      
+      </div>
+</body>
+</html>
